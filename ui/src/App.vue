@@ -95,7 +95,7 @@
                   </span>
                   <v-icon
                     v-clipboard="tenant"
-                    v-clipboard:success="() => { copySnack = true; }"
+                    v-clipboard:success="() => { this.$store.dispatch('modals/showSnackbarCopy'); }"
                     right
                   >
                     mdi-content-copy
@@ -127,12 +127,6 @@
       >
         <router-view :key="$route.fullPath" />
       </v-container>
-      <v-snackbar
-        v-model="copySnack"
-        :timeout="3000"
-      >
-        Tenant ID copied to clipboard
-      </v-snackbar>
 
       <snackbar />
     </v-main>
@@ -154,7 +148,6 @@ export default {
     return {
       drawer: true,
       clipped: false,
-      copySnack: false,
       items: [
         {
           icon: 'dashboard',

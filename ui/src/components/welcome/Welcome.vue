@@ -74,7 +74,7 @@
             >
               <WelcomeSecondScreen
                 :command="command()"
-                @expClip="receiveClip"
+                @expClip="() => { this.$store.dispatch('modals/showSnackbarCopy'); }"
               />
             </v-card>
             <v-card-actions>
@@ -104,12 +104,6 @@
                 Next
               </v-btn>
             </v-card-actions>
-            <v-snackbar
-              v-model="copy"
-              :timeout="3000"
-            >
-              Command copied to clipboard
-            </v-snackbar>
           </v-stepper-content>
 
           <v-stepper-content step="3">
@@ -142,12 +136,6 @@
                 Accept
               </v-btn>
             </v-card-actions>
-            <v-snackbar
-              v-model="copy"
-              :timeout="3000"
-            >
-              Command copied to clipboard
-            </v-snackbar>
           </v-stepper-content>
 
           <v-stepper-content step="4">
@@ -206,7 +194,6 @@ export default {
   data() {
     return {
       e1: 1,
-      copy: false,
       enable: false,
       polling: null,
       trigger: null,
@@ -230,10 +217,6 @@ export default {
   },
 
   methods: {
-    receiveClip(params) {
-      this.copy = params;
-    },
-
     beforeDestroy() {
       clearInterval(this.polling);
     },
